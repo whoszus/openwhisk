@@ -15,7 +15,7 @@
 # limitations under the License.
 #
 
-FROM scala
+FROM frolvlad/alpine-scala:latest
 
 ENV UID=1001 \
     NOT_ROOT_USER=owuser
@@ -31,7 +31,7 @@ ENV SWAGGER_UI_DOWNLOAD_SHA256=3d7ef5ddc59e10f132fe99771498f0f1ba7a2cbfb9585f986
 ENV DOCKER_VERSION=18.06.3-ce
 
 RUN apk add --update openssl
-
+RUN apk add curl
 # Uncomment to fetch latest version of docker instead: RUN wget -qO- https://get.docker.com | sh
 # Install docker client
 RUN curl -sSL -o docker-${DOCKER_VERSION}.tgz https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKER_VERSION}.tgz && \
@@ -41,6 +41,7 @@ RUN curl -sSL -o docker-${DOCKER_VERSION}.tgz https://download.docker.com/linux/
     chmod +x /usr/bin/docker && \
     chmod +x /usr/bin/docker-runc
 ##################################################################################################
+
 
 # Install swagger-ui
 RUN curl -sSL -o swagger-ui-v${SWAGGER_UI_VERSION}.tar.gz --no-verbose https://github.com/swagger-api/swagger-ui/archive/v${SWAGGER_UI_VERSION}.tar.gz && \
